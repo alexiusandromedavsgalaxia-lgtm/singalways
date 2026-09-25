@@ -5,15 +5,15 @@ Responsive React karaoke app for desktop, tablet and mobile.
 ## Features
 - Import local audio files into the current browser.
 - Save YouTube karaoke entries in the existing Cloudflare D1 database **SongSave**.
-- Store the YouTube source in `song_video`, the song title/artist, and the assigned segment start in `segment_saved`.
-- Random karaoke rounds of 30–60 seconds.
-- Resolve the saved YouTube audio through the configured downloader when a saved song is played.
+- Store the YouTube source in `song_video`, the song title/artist, and the saved segment start in `segment_saved`.
+- YouTube songs play through the official YouTube embedded player; no yt-dlp service or `YTDLP_API_URL` is required.
+- Karaoke rounds use a 30–60 second window. YouTube entries currently use the first 60 seconds because the app does not need a downloader to obtain the audio duration.
 - Browser microphone capture stays local to the device.
 - Responsive UI.
 
 ## SongSave D1
 
-SingAlways expects the existing SongSave D1 binding to be exposed to the Pages/Workers Function as `DB`.
+SingAlways expects the existing SongSave D1 binding to be exposed to the Pages/Workers Function as `video` (the code also accepts legacy binding names).
 
 The current SongSave table used by the app is:
 
@@ -27,19 +27,7 @@ CREATE TABLE "main"."table" (
 );
 ```
 
-No R2 binding is required for YouTube entries.
-
-## YouTube audio service
-
-Set `YTDLP_API_URL` to a downloader service you control and are authorized to use. It must accept:
-
-```json
-{"url":"https://www.youtube.com/..."}
-```
-
-and return JSON containing `audio_url`, with optional `title`, `artist`, and `duration`.
-
-The audio itself is not stored as a binary blob in SongSave; SongSave stores the song metadata, source URL and saved segment position.
+No R2 binding is required.
 
 ## Run
 
