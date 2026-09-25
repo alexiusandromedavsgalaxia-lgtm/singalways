@@ -1,1 +1,7 @@
-CREATE TABLE IF NOT EXISTS songs (id TEXT PRIMARY KEY,title TEXT NOT NULL,artist TEXT DEFAULT '',duration REAL NOT NULL DEFAULT 0,storage_key TEXT,source TEXT NOT NULL DEFAULT 'upload',source_url TEXT,lyrics TEXT DEFAULT '',created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP); CREATE INDEX IF NOT EXISTS idx_songs_created_at ON songs(created_at);
+CREATE TABLE IF NOT EXISTS "main"."table" (
+  "artist" TEXT,
+  "session_id" BLOB,
+  "song_name" TEXT,
+  "song_video" INTEGER,
+  "segment_saved" REAL
+);
